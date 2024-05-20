@@ -1,0 +1,54 @@
+<app-nav></app-nav>
+<div class="container-body">
+
+  <div class="form">
+    <form>
+      <h2>Comprá tus pasajes acá</h2>
+      <div>
+        <div class="form-div form-div-1">
+          <label>Ciudad de origen</label>
+          <input
+            placeholder="¿Desde dónde viajas?"
+            type="text"
+            [formControl]="control"
+            [matAutocomplete]="auto"
+            #localidadOrigen
+          >
+          <mat-autocomplete #auto="matAutocomplete">
+            @for (street of filteredStreets | async; track street) {
+              <mat-option [value]="street">{{street}}</mat-option>
+            }
+          </mat-autocomplete>
+      
+          <label>Ciudad de destino</label>
+          <input
+          placeholder="¿Hasta dónde viajas?"
+            type="text"
+            [formControl]="control"
+            [matAutocomplete]="auto"
+            #localidadDestino
+          >
+      
+          <mat-autocomplete #auto="matAutocomplete">
+            @for (street of filteredStreets | async; track street) {
+              <mat-option [value]="street">{{street}}</mat-option>
+            }
+          </mat-autocomplete>
+        </div>
+  
+        <div class="form-div form-div-2">
+          <label>Fecha de salida:</label>
+          <input 
+            type="date"
+            name="fecha"
+            #fecha
+            [min]="getDate()"
+          >
+          
+          <button (click)="buscar(localidadDestino.value,localidadOrigen.value,fecha.value)" >Buscar</button>
+        </div>
+      </div>
+    </form>
+  </div>  
+</div>
+<app-footer></app-footer>
